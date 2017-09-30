@@ -5,6 +5,7 @@
   </h1>
     
    Find product: <input #in type="text" (input)="filterProduct(in.value)">
+   <button #sort (click)="onSort(sort)">Sortuj</button>
     
 
    <product-list [products]="products"></product-list>
@@ -28,6 +29,11 @@
     TODOS:
   </h1>
   <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
+
+  <h1>
+    TODOS HTTP:
+  </h1>
+  <my-todo *ngFor="let todo of todosHttp" [todo]="todo"></my-todo>
 
 <!-- 
  <h1>

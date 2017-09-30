@@ -3,5 +3,13 @@
 
 ngRx: https://github.com/ngrx/store
 model flux
+---------------------------------------------------------------
+Http + RxJS
+Create second repository service using Http module to provide products data from server. To obtain data you can use following URL: https://shining-torch-4509.firebaseio.com/products.json. You can also create .json files containing data about products - webpack will serve them correctly.
+AdditionalCreate an interface for products repository. All implementations should implement it properly.
+AdditionalAdd retrying 5 times to Http–based implementation. Check if it works properly by changing data URI into invalid one or disabling network access in developer tools.
+AdditionalAdd ability to remove a product.
+AdditionalChange retrying strategy to add 1 second delay between tries so app will wait 1 second, then 2, then 3, etc.
+AdditionalRefactor code: make sure that every action is performed in proper place.
 
 

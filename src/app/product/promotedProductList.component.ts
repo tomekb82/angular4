@@ -1,6 +1,6 @@
 
 import {Component, Input} from '@angular/core';
-import {IProduct} from './product.component';
+import {IProduct} from './product.repository';
 
 @Component({
     selector: 'promoted-product-list',

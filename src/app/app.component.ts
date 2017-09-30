@@ -2,6 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import {TodoRepository} from "./todo/todo.repository";
 import {ProductRepository, ProductRepositoryToken, IProduct} from "./product/product.repository";
+import { Http } from '@angular/http';
+// 3. Depending on configuration we will need to import every Rx.js operator to use it
+import "rxjs/add/operator/map";
 
 @Component({
   selector: 'app-root',
@@ -12,27 +15,7 @@ export class AppComponent implements OnInit{
 
   private title = 'Shop with list of all products';
 
-  public tempProducts: Array<IProduct>;/* = [
-  	{ name:"Kurtka",
-  	  price:250.00,
-  	  description:"Naprawdę zajefajna kurtka",
-  	  promoted:false,
-      tags:"ubranie, gortex"
-  	},
-	{ name:"Butki",
-	  price:204.00,
-  	  description:"Zajebiste adidaski",
-  	  promoted:true,
-      tags:"ubranie, skóra"
-  	},
-  	{ name:"Spodnie",
-  	  price:99.99,
-  	  description:"Dziurawe dżinsy",
-  	  promoted:false,
-      tags:"ubranie, dżins"
-  	}
-  ];*/
-
+  public tempProducts: Array<IProduct>;
   public todos: Array<Object> = [];
 
   public productPromise: Promise<Array<IProduct>>;
@@ -48,13 +31,21 @@ export class AppComponent implements OnInit{
         this.copyProducts();
     }
 
+ public todosHttp;
+
      constructor (todoRepository: TodoRepository,
-             @Inject(ProductRepositoryToken) productRepository: ProductRepository) {
-       
+             @Inject(ProductRepositoryToken) productRepository: ProductRepository,
+             http: Http) {
+
        this.tempProducts = productRepository.getProducts();
        this.todos = todoRepository.getTodos();
         //Then we have access to an observable emitting new event every time value changes
         this.myInput.valueChanges.subscribe(value => this.values.push(value));
+
+
+        http.get('/assets/todos.json')
+            .map(res => res.json())
+            .subscribe((todos) => this.todosHttp = todos);
     }
 
     
@@ -65,6 +56,18 @@ export class AppComponent implements OnInit{
     public onClick (button) {
         this.clicks.push(`clicked button ${button.textContent}`);
     }
+
+    public onSort (button) {
+        this.products.sort((a,b) => {
+          if(a>b){
+            return -1
+          }else{
+            return 1;
+          }
+
+        });
+    }
+
 
     public ticks: Array<Date> = [];
 
