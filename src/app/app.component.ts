@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-interface Product{
+interface IProduct{
       name: string,
       price:number,
       description:string,
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit{
 
   private title = 'Shop with list of all products';
 
-  private products: Array<Product> = [
+  public products: Array<IProduct> = [
   	{ name:"Kurtka",
   	  price:250.00,
   	  description:"Naprawdę zajefajna kurtka",
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
         {title: 'my second todo', done: true}
     ];
 
-  public productPromise: Promise<Array<Product>>;
+  public productPromise: Promise<Array<IProduct>>;
 
     public ngOnInit (): void {
         this.productPromise = new Promise((resolve) => {

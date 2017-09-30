@@ -1,22 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ProductModule } from './product/product.module';
 
 import { AppComponent } from './app.component';
 import { TodoComponent } from './todo/todo.component';
-import { ProductComponent } from './product/product.component';
-import { ProductListComponent } from './product/productList.component';
-import { PromotedPipe } from './product/promoted.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoComponent,
-    ProductComponent,
-    ProductListComponent,
-    PromotedPipe
+    TodoComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ProductModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,12 @@
 import {Component, Input} from '@angular/core';
 
+export interface IProduct{
+      name: string,
+      price:number,
+      description:string,
+      promoted: boolean,
+      tags: string
+}
 
 @Component({
     selector: 'product',
@@ -13,5 +20,5 @@ import {Component, Input} from '@angular/core';
 })
 export class ProductComponent {
     // To receive data we use Input annotation
-    @Input() public product;
+    @Input() public product:IProduct;
 }

@@ -4,25 +4,26 @@
     {{title}}
   </h1>
     
-  <div *ngIf="productPromise | async as products; else loading">
-    <h1>All products:</h1>
-    <product-list [products]="products"></product-list>
-
-    <h1>Promoted products:</h1>
-    <product-list [products]="products | promoted"></product-list>
+   <div *ngIf="productPromise | async as products; else loading">
+      <h1>All products:</h1>
+      <product-list [products]="products"></product-list>
+      
+      <h1>Promoted products:</h1>
+      <!-- <product-list [products]="products | promoted"></product-list>  -->
+      <promoted-product-list [products]="products"></promoted-product-list>   
   </div>
-
+ 
   <ng-template #loading>
     Loading data
   </ng-template>
-
-<br/>
-
+  
+  <br/>
+  
   <h1>
     TODOS:
   </h1>
   <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
-
+   
 </div>  
 
 

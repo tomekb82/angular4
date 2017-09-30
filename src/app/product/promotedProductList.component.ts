@@ -3,14 +3,14 @@ import {Component, Input} from '@angular/core';
 import {IProduct} from './product.component';
 
 @Component({
-    selector: 'product-list',
+    selector: 'promoted-product-list',
     template: `
-        <div *ngFor="let product of products">
+        <div *ngFor="let product of products | promoted">
         	<product [product]="product"></product>
         </div>
     `
 })
-export class ProductListComponent {
+export class PromotedProductListComponent {
     // To receive data we use Input annotation
     @Input() public products:Array<IProduct>;
 }
