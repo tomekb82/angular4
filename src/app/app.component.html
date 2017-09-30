@@ -4,13 +4,18 @@
     {{title}}
   </h1>
     
+   Find product: <input #in type="text" (input)="filterProduct(in.value)">
+    
+
+   <product-list [products]="products"></product-list>
+
    <div *ngIf="productPromise | async as products; else loading">
-      <h1>All products:</h1>
-      <product-list [products]="products"></product-list>
+      <!-- <h1>All products:</h1> -->
+      <!-- <product-list [products]="products"></product-list> -->
       
-      <h1>Promoted products:</h1>
+      <!-- <h1>Promoted products:</h1> -->
       <!-- <product-list [products]="products | promoted"></product-list>  -->
-      <promoted-product-list [products]="products"></promoted-product-list>   
+      <!-- <promoted-product-list [products]="products"></promoted-product-list>  -->  
   </div>
  
   <ng-template #loading>
@@ -18,13 +23,13 @@
   </ng-template>
   
   <br/>
-  
+ <!-- 
   <h1>
     TODOS:
   </h1>
   <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
 
-<h1>
+ <h1>
     Events:
   </h1>
 
@@ -34,7 +39,7 @@
                 <li *ngFor="let value of values">{{ value }}</li>
             </ul>
         </div>
-        
+
   <div>
             <button #button (click)="onClick(button)">Click me!</button>
             <ul>
@@ -48,7 +53,7 @@
             </ul>  
 
 
-        
+         -->
 
 
 

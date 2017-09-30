@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
 
   private title = 'Shop with list of all products';
 
-  public products: Array<IProduct> = [
+  public tempProducts: Array<IProduct> = [
   	{ name:"Kurtka",
   	  price:250.00,
   	  description:"Naprawdę zajefajna kurtka",
@@ -47,18 +47,21 @@ export class AppComponent implements OnInit{
   public productPromise: Promise<Array<IProduct>>;
 
     public ngOnInit (): void {
-        this.productPromise = new Promise((resolve) => {
+        /*this.productPromise = new Promise((resolve) => {
             setTimeout(
-                () => resolve(this.products),
+                () => resolve(this.tempProducts),
                 1000
             );
-        });
+        });*/
+
+        this.copyProducts();
     }
 
      constructor () {
         //Then we have access to an observable emitting new event every time value changes
         this.myInput.valueChanges.subscribe(value => this.values.push(value));
     }
+
     
     /* Events */
     public clicks: Array<string> = [];
@@ -77,7 +80,23 @@ export class AppComponent implements OnInit{
     public values: Array<string> = [];
     //And create a control instance...
     public myInput = new FormControl();
-  
+
+
+   products;
+   public copyProducts(){
+     this.products = Object.assign([], this.tempProducts);
+   }
+
+   public filterProduct(search){
+     this.copyProducts();
+     if(!search){
+       return
+     }
+     this.products = this.tempProducts.filter(item => 
+       item.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
+   } 
+
+
 
 
 }
