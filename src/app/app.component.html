@@ -5,17 +5,12 @@
   </h1>
   
   <div *ngIf="productPromise | async as products; else loading">
-    <div *ngFor="let product of products"
-         [ngStyle] = "{background:product.promoted ? 'yellow': 'white'}">
-      <h2>{{product.name}}, Price:{{product.price}} pln</h2>
-      <p>{{product.description}}</p>
-    </div> 
+    <product-list [products]="products"></product-list>
   </div>
 
   <ng-template #loading>
     Loading data
   </ng-template>
-
 
 <br/>
 
