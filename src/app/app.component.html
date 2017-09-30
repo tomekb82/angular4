@@ -4,37 +4,42 @@
     {{title}}
   </h1>
 
-<!--Routing -->
+  <!--Routing -->
   <div>
-            <nav>
-                <a routerLink="/a">A</a>
-                <a routerLink="/b">B</a>
-                <a routerLink="/c">C</a>
-            </nav>
-            <router-outlet></router-outlet>
-        </div>
+    <nav>
+      <a routerLink="/a">A</a>
+      <a routerLink="/b">B</a>
+      <a routerLink="/c">C</a>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
 
-    
+   <h1>Promoted products:</h1> 
+   <div *ngIf="productPromise | async as tempProducts2; else loading">
+       <!-- <product-list [products]="products | promoted"></product-list> -->
+       <promoted-product-list [products]="tempProducts2"></promoted-product-list> 
+    </div>
+
+   <ng-template #loading>
+    Loading data
+   </ng-template>
+
+   <br style="clear: both"/>
+
+   <h1>All products:</h1>
    Find product: <input #in type="text" (input)="filterProduct(in.value)">
    <button #sort (click)="onSort(sort)">Sortuj</button>
-    
-
-   <product-list [products]="products"></product-list>
-
-   <div *ngIf="productPromise | async as products; else loading">
-      <!-- <h1>All products:</h1> -->
-      <!-- <product-list [products]="products"></product-list> -->
-      
-      <!-- <h1>Promoted products:</h1> -->
-      <!-- <product-list [products]="products | promoted"></product-list>  -->
-      <!-- <promoted-product-list [products]="products"></promoted-product-list>  -->  
-  </div>
+   <product-list [products]="products"></product-list> 
+   
+   <div *ngIf="prom | async as products; else loading2">
+      <product-list [products]="products"></product-list>  
+   </div>
  
-  <ng-template #loading>
+  <ng-template #loading2>
     Loading data
   </ng-template>
   
-  <br/>
+  <br style="clear: both"/>
  
   <h1>
     TODOS:
@@ -46,6 +51,9 @@
   </h1>
   <my-todo *ngFor="let todo of todosHttp" [todo]="todo"></my-todo>
 
+<h1>
+    TODOS FORM:
+  </h1>
 <div>
             <form [formGroup]="todoForm">
                 <label>
@@ -56,7 +64,7 @@
             <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
         </div>
 
-<!-- 
+
  <h1>
     Events:
   </h1>
@@ -81,7 +89,7 @@
             </ul>  
 
 
-         -->
+         
 
 
 

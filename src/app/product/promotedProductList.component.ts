@@ -11,7 +11,6 @@ import {IProduct} from './product.repository';
     `
 })
 export class PromotedProductListComponent {
-    // To receive data we use Input annotation
     @Input() public products:Array<IProduct>;
 }
  

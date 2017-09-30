@@ -1,66 +1,79 @@
 import {Injectable, InjectionToken, OnInit} from "@angular/core";
-import { Http } from '@angular/http';
-// 3. Depending on configuration we will need to import every Rx.js operator to use it
+import { Http,Response } from '@angular/http';
 import "rxjs/add/operator/map";
+import { Observable, Subject } from 'rxjs';
+import * as _ from 'lodash'; 
 
 export interface IProduct{
       name: string,
       price:number,
       description:string,
       promoted: boolean,
-      tags: string
+      tags: string,
+      imageUrl: string
 }
 
-
-//3/ It is very useful to make our type hints against interface(or general - abstraction) instead of implementation
-export interface ProductRepository /*extends OnInit*/{
+export interface ProductRepository {
     getProducts(): IProduct[];
+    getProductsStream();
 }
 
 @Injectable()
 export class InMemoryProductRepository implements ProductRepository{
 
-products;
+	products = [
+    { name:"Kurtka",
+      price:250.00,
+      description:"Naprawdę zajefajna kurtka",
+      promoted:false,
+      tags:"ubranie, gortex",
+      imageUrl:"/assets/angular.png"
+    },
+  { name:"Butki",
+    price:204.00,
+      description:"Zajebiste adidaski",
+      promoted:true,
+      tags:"ubranie, skóra",
+      imageUrl:"/assets/angular.png"
+    },
+    { name:"Spodnie",
+      price:99.99,
+      description:"Dziurawe dżinsy",
+      promoted:true,
+      tags:"ubranie, dżins",
+      imageUrl:"/assets/angular.png"
+    },
+    { name:"Okrasa",
+      price:99.99,
+      description:"Dziurawe dżinsy",
+      promoted:false,
+      tags:"ubranie, dżins",
+      imageUrl:"/assets/angular.png"
+    }
+  ];
 
 	constructor(private http:Http){
-	/*}
-	public ngOnInit (): void {	
-	*/	console.log('res');
-			this.http.get('http://shining-torch-4509.firebaseio.com/products.json')
-            .map(res => {console.log(res); return res.json();})
-            .subscribe((products) => this.products = products);
-
-            console.log(this.products);
+		this.getProductsRx();
 	}
 
-    public getProducts (): IProduct[] {
+	productStream = new Subject();
+    getProductsStream(){
+    	return Observable
+        	.from(this.productStream)
+          .startWith(this.products);
+  }
+	
+  getProductsRx() {
+    	this.http.get('http://shining-torch-4509.firebaseio.com/products.json')
+        .map(res =>  _.values(res.json()))
+        .do(products => this.products = products)
+        .subscribe((products:Response) => {
+      	  this.productStream.next(products);
+        });
+  }
 
-        return [
-  	{ name:"Kurtka",
-  	  price:250.00,
-  	  description:"Naprawdę zajefajna kurtka",
-  	  promoted:false,
-      tags:"ubranie, gortex"
-  	},
-	{ name:"Butki",
-	  price:204.00,
-  	  description:"Zajebiste adidaski",
-  	  promoted:true,
-      tags:"ubranie, skóra"
-  	},
-  	{ name:"Spodnie",
-  	  price:99.99,
-  	  description:"Dziurawe dżinsy",
-  	  promoted:false,
-      tags:"ubranie, dżins"
-  	},
-  	{ name:"Okrasa",
-  	  price:99.99,
-  	  description:"Dziurawe dżinsy",
-  	  promoted:false,
-      tags:"ubranie, dżins"
-  	}
-  ];
+    public getProducts (): IProduct[] {
+    	return this.products;
     }
 }
 

@@ -12,16 +12,12 @@ import { InMemoryProductRepository, ProductRepositoryToken } from "./product/pro
 
 import { Routes, RouterModule } from '@angular/router';
 
-
-//6/ This is how router configuration looks like
 const appRoutes: Routes = [
     {path: 'a', component: AComponent},
     {path: 'b', component: BComponent},
     {path: '', component: AComponent},
     {path: '**', component: AComponent}
 ];
-
-
 
 @NgModule({
   declarations: [

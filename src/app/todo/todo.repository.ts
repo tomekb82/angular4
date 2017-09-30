@@ -4,6 +4,7 @@ import {Component, Injectable} from "@angular/core";
 @Injectable()
 //8/ When ignoring decorator service is simple class with no influences from Angular
 export class TodoRepository {
+
     public getTodos (): Object[] {
         return [
             {title: 'my first todo', done: false},
