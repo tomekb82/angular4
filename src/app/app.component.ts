@@ -83,15 +83,22 @@ export class AppComponent implements OnInit{
         this.clicks.push(`clicked button ${button.textContent}`);
     }
 
+    toggle = true;
+
+    changeToggle(){
+      this.toggle = !this.toggle;
+    }
+
     public onSort (button) {
         this.products.sort((a,b) => {
-          if(a>b){
-            return -1
+          if(a.name > b.name){
+            return this.toggle ? 1 : -1;
           }else{
-            return 1;
+            return this.toggle ? -1 : 1;
           }
 
         });
+        this.changeToggle();
     }
 
 
