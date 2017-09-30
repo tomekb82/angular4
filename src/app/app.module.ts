@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TodoComponent} from './todo/todo.component';
 import { TodoRepository} from './todo/todo.repository';
+import { InMemoryProductRepository, ProductRepositoryToken } from "./product/product.repository";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { TodoRepository} from './todo/todo.repository';
     ProductModule,
     ReactiveFormsModule
   ],
-  providers: [TodoRepository],
+  providers: [TodoRepository, {provide: ProductRepositoryToken, useClass: InMemoryProductRepository}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

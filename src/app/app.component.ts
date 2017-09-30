@@ -1,14 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import {TodoRepository} from "./todo/todo.repository";
-
-interface IProduct{
-      name: string,
-      price:number,
-      description:string,
-      promoted: boolean,
-      tags: string
-}
+import {ProductRepository, ProductRepositoryToken, IProduct} from "./product/product.repository";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +12,7 @@ export class AppComponent implements OnInit{
 
   private title = 'Shop with list of all products';
 
-  public tempProducts: Array<IProduct> = [
+  public tempProducts: Array<IProduct>;/* = [
   	{ name:"Kurtka",
   	  price:250.00,
   	  description:"Naprawdę zajefajna kurtka",
@@ -38,7 +31,7 @@ export class AppComponent implements OnInit{
   	  promoted:false,
       tags:"ubranie, dżins"
   	}
-  ];
+  ];*/
 
   public todos: Array<Object> = [];
 
@@ -55,7 +48,10 @@ export class AppComponent implements OnInit{
         this.copyProducts();
     }
 
-     constructor (todoRepository: TodoRepository) {
+     constructor (todoRepository: TodoRepository,
+             @Inject(ProductRepositoryToken) productRepository: ProductRepository) {
+       
+       this.tempProducts = productRepository.getProducts();
        this.todos = todoRepository.getTodos();
         //Then we have access to an observable emitting new event every time value changes
         this.myInput.valueChanges.subscribe(value => this.values.push(value));
