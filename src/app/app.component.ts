@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
+import {TodoRepository} from "./todo/todo.repository";
 
 interface IProduct{
       name: string,
@@ -39,10 +40,7 @@ export class AppComponent implements OnInit{
   	}
   ];
 
-  public todos: Array<Object> = [
-        {title: 'my first todo', done: false},
-        {title: 'my second todo', done: true}
-    ];
+  public todos: Array<Object> = [];
 
   public productPromise: Promise<Array<IProduct>>;
 
@@ -57,7 +55,8 @@ export class AppComponent implements OnInit{
         this.copyProducts();
     }
 
-     constructor () {
+     constructor (todoRepository: TodoRepository) {
+       this.todos = todoRepository.getTodos();
         //Then we have access to an observable emitting new event every time value changes
         this.myInput.valueChanges.subscribe(value => this.values.push(value));
     }

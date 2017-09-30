@@ -5,20 +5,21 @@ import { TimerComponent } from './timer/timer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { TodoComponent } from './todo/todo.component';
+import { TodoComponent} from './todo/todo.component';
+import { TodoRepository} from './todo/todo.repository';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
-    TimerComponent
+    TimerComponent,
   ],
   imports: [
     BrowserModule,
     ProductModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [TodoRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
