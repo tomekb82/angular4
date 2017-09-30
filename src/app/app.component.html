@@ -3,9 +3,13 @@
   <h1>
     {{title}}
   </h1>
-  
+    
   <div *ngIf="productPromise | async as products; else loading">
+    <h1>All products:</h1>
     <product-list [products]="products"></product-list>
+
+    <h1>Promoted products:</h1>
+    <product-list [products]="products | promoted"></product-list>
   </div>
 
   <ng-template #loading>

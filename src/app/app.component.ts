@@ -4,7 +4,8 @@ interface Product{
       name: string,
       price:number,
       description:string,
-      promoted: boolean
+      promoted: boolean,
+      tags: string
 }
 
 @Component({
@@ -14,23 +15,26 @@ interface Product{
 })
 export class AppComponent implements OnInit{
 
-  private title = 'Product title';
+  private title = 'Shop with list of all products';
 
   private products: Array<Product> = [
   	{ name:"Kurtka",
   	  price:250.00,
   	  description:"Naprawdę zajefajna kurtka",
-  	  promoted:false
+  	  promoted:false,
+      tags:"ubranie, gortex"
   	},
 	{ name:"Butki",
 	  price:204.00,
   	  description:"Zajebiste adidaski",
-  	  promoted:true
+  	  promoted:true,
+      tags:"ubranie, skóra"
   	},
   	{ name:"Spodnie",
   	  price:99.99,
   	  description:"Dziurawe dżinsy",
-  	  promoted:false
+  	  promoted:false,
+      tags:"ubranie, dżins"
   	}
   ];
 
@@ -38,7 +42,7 @@ export class AppComponent implements OnInit{
         {title: 'my first todo', done: false},
         {title: 'my second todo', done: true}
     ];
-    
+
   public productPromise: Promise<Array<Product>>;
 
     public ngOnInit (): void {

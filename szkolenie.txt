@@ -1,3 +1,7 @@
 ## Szkolenie Angular4
 
 
+ngRx: https://github.com/ngrx/store
+model flux
+
+

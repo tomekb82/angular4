@@ -7,6 +7,7 @@ import {Component, Input} from '@angular/core';
         <div [ngStyle] = "{background:product.promoted ? 'yellow': 'white'}">
             <h2>{{product.name}}, Price:{{product.price}} pln</h2>
       	    <p>{{product.description}}</p>
+      	    <p>Tags: {{product.tags}}</p>
         </div>
     `
 })
