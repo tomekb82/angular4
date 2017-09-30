@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from "@angular/forms";
 
 interface IProduct{
       name: string,
@@ -53,6 +54,29 @@ export class AppComponent implements OnInit{
             );
         });
     }
+
+     constructor () {
+        //Then we have access to an observable emitting new event every time value changes
+        this.myInput.valueChanges.subscribe(value => this.values.push(value));
+    }
+    
+    /* Events */
+    public clicks: Array<string> = [];
+
+    //3/ We need to create a method in component class, notify that button is DOM element
+    public onClick (button) {
+        this.clicks.push(`clicked button ${button.textContent}`);
+    }
+
+    public ticks: Array<Date> = [];
+
+    public onTick (tick: Date) {
+        this.ticks.push(tick);
+    }
+
+    public values: Array<string> = [];
+    //And create a control instance...
+    public myInput = new FormControl();
   
 
 
