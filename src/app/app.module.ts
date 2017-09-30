@@ -5,14 +5,27 @@ import { TimerComponent } from './timer/timer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
+import { AppComponent,AComponent, BComponent } from './app.component';
 import { TodoComponent} from './todo/todo.component';
 import { TodoRepository} from './todo/todo.repository';
 import { InMemoryProductRepository, ProductRepositoryToken } from "./product/product.repository";
 
+import { Routes, RouterModule } from '@angular/router';
+
+
+//6/ This is how router configuration looks like
+const appRoutes: Routes = [
+    {path: 'a', component: AComponent},
+    {path: 'b', component: BComponent},
+    {path: '', component: AComponent},
+    {path: '**', component: AComponent}
+];
+
+
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,AComponent, BComponent,
     TodoComponent,
     TimerComponent,
   ],
@@ -20,7 +33,8 @@ import { InMemoryProductRepository, ProductRepositoryToken } from "./product/pro
     BrowserModule,
     ProductModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [TodoRepository, {provide: ProductRepositoryToken, useClass: InMemoryProductRepository}],
   bootstrap: [AppComponent]

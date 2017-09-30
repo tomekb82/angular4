@@ -3,6 +3,17 @@
   <h1>
     {{title}}
   </h1>
+
+<!--Routing -->
+  <div>
+            <nav>
+                <a routerLink="/a">A</a>
+                <a routerLink="/b">B</a>
+                <a routerLink="/c">C</a>
+            </nav>
+            <router-outlet></router-outlet>
+        </div>
+
     
    Find product: <input #in type="text" (input)="filterProduct(in.value)">
    <button #sort (click)="onSort(sort)">Sortuj</button>
@@ -44,7 +55,7 @@
             </form>
             <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
         </div>
-        
+
 <!-- 
  <h1>
     Events:
