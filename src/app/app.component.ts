@@ -17,19 +17,19 @@ export class AppComponent implements OnInit{
   private title = 'Product title';
 
   private products: Array<Product> = [
-  	{ name:"normal product 1",
-  	  price:123,
-  	  description:"description of product 1",
+  	{ name:"Kurtka",
+  	  price:250.00,
+  	  description:"Naprawdę zajefajna kurtka",
   	  promoted:false
   	},
-	{ name:"promted product 2",
-	  price:123,
-  	  description:"description of product 2",
+	{ name:"Butki",
+	  price:204.00,
+  	  description:"Zajebiste adidaski",
   	  promoted:true
   	},
-  	{ name:"normal product 3",
-  	  price:123,
-  	  description:"description of product 3",
+  	{ name:"Spodnie",
+  	  price:99.99,
+  	  description:"Dziurawe dżinsy",
   	  promoted:false
   	}
   ];
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit{
         this.productPromise = new Promise((resolve) => {
             setTimeout(
                 () => resolve(this.products),
-                5000
+                1000
             );
         });
     }
