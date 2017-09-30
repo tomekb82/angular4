@@ -35,6 +35,16 @@
   </h1>
   <my-todo *ngFor="let todo of todosHttp" [todo]="todo"></my-todo>
 
+<div>
+            <form [formGroup]="todoForm">
+                <label>
+                    Title: <input type="text" [formControlName]="'title'" />
+                </label>
+                <button (click)="addTodo()">Add</button>
+            </form>
+            <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
+        </div>
+        
 <!-- 
  <h1>
     Events:

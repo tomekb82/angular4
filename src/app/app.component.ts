@@ -6,6 +6,8 @@ import { Http } from '@angular/http';
 // 3. Depending on configuration we will need to import every Rx.js operator to use it
 import "rxjs/add/operator/map";
 
+import { FormGroup, FormBuilder } from "@angular/forms";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,9 +35,12 @@ export class AppComponent implements OnInit{
 
  public todosHttp;
 
+ public todoForm: FormGroup;
+
      constructor (todoRepository: TodoRepository,
              @Inject(ProductRepositoryToken) productRepository: ProductRepository,
-             http: Http) {
+             http: Http,
+             fb: FormBuilder) {
 
        this.tempProducts = productRepository.getProducts();
        this.todos = todoRepository.getTodos();
@@ -46,8 +51,16 @@ export class AppComponent implements OnInit{
         http.get('/assets/todos.json')
             .map(res => res.json())
             .subscribe((todos) => this.todosHttp = todos);
+
+
+       this.todoForm = fb.group({
+            title: ['']
+        });     
     }
 
+    addTodo () {
+        this.todos.push({title: this.todoForm.value.title, done: false});
+    }
     
     /* Events */
     public clicks: Array<string> = [];
