@@ -34,6 +34,11 @@ export class AppComponent implements OnInit{
   	}
   ];
 
+  public todos: Array<Object> = [
+        {title: 'my first todo', done: false},
+        {title: 'my second todo', done: true}
+    ];
+    
   public productPromise: Promise<Array<Product>>;
 
     public ngOnInit (): void {
