@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';                                                        
 
-import { AppComponent,AComponent, BComponent } from './app.component';
+import { AppComponent, ProductsComponent, ProductFormComponent } from './app.component';
 import { TodoComponent} from './todo/todo.component';
 import { TodoRepository} from './todo/todo.repository';
 import { InMemoryProductRepository, ProductRepositoryToken } from "./product/product.repository";
@@ -14,15 +14,15 @@ import { InMemoryProductRepository, ProductRepositoryToken } from "./product/pro
 import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
-    {path: 'a', component: AComponent},
-    {path: 'b', component: BComponent},
-    {path: '', component: AComponent},
-    {path: '**', component: AComponent}
+    {path: 'list', component: ProductsComponent},
+    {path: 'add', component: ProductFormComponent},
+    {path: '', component: ProductsComponent},
+    {path: '**', component: ProductsComponent}
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,AComponent, BComponent,
+    AppComponent,ProductsComponent, ProductFormComponent,
     TodoComponent,
     TimerComponent,
   ],

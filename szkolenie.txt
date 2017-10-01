@@ -72,7 +72,7 @@ Forms
 Routing
 
 
-Configure router with 2 routes: products list and order form
+#Configure router with 2 routes: products list and order form
 
 Create a menu
 
