@@ -29,7 +29,7 @@
   Find product: <input #in type="text" (input)="filterProduct(in.value)">
   <button #sort (click)="onSort(sort)">Sortuj</button>
   <div *ngIf="prom | async as products; else loading2">
-    <product-list [products]="products"></product-list>  
+    <product-list [products]="products" (deleted)="onDelete($event)"></product-list>  
   </div>
   <ng-template #loading2>
     Loading data

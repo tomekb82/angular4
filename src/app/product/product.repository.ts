@@ -22,6 +22,8 @@ export interface ProductRepository {
 @Injectable()
 export class InMemoryProductRepository implements ProductRepository{
 
+  private SERVICE_URL = 'http://shining-torch-4509.firebaseio.com/products.json';
+
 	products = [
     { 
       name:"Kurtka",
@@ -74,7 +76,7 @@ export class InMemoryProductRepository implements ProductRepository{
   }
 
   getProductsRx() {
-    this.http.get('http://shining-torch-4509.firebaseio.com/products.json')
+    this.http.get(this.SERVICE_URL)
       .map(res =>  _.values(res.json()))
       .do(products => this.products = products)
       .subscribe((products:Response) => {

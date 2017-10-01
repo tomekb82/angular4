@@ -118,6 +118,15 @@ export class AppComponent implements OnInit{
         this.ticks.push(tick);
     }
 
+    public onDelete (product) {
+      console.log(this.tempProducts);
+        this.tempProducts = _.remove(this.tempProducts, function(o) { 
+          return o.name!=product.name; 
+        });
+        this.products = Object.assign([], this.tempProducts);
+        this.productRepository.getProductSubject().next(this.products);
+    }
+
     /* Forms */
     public values: Array<string> = [];
     //And create a control instance...
