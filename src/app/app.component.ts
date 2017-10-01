@@ -56,6 +56,7 @@ export class AppComponent implements OnInit{
              fb: FormBuilder) {
 
         this.tempProducts2 = productRepository.getProducts();
+
         this.todos = todoRepository.getTodos();
         //Then we have access to an observable emitting new event every time value changes
         this.myInput.valueChanges.subscribe(value => this.values.push(value));
@@ -64,11 +65,12 @@ export class AppComponent implements OnInit{
             .map(res => res.json())
             .subscribe((todos) => this.todosHttp = todos);*/
 
-       /*productRepository.getProductsStream().subscribe((products)=>{
+       this.prom = productRepository.getProductsStream();     
+       this.prom.subscribe((products)=>{
           this.tempProducts = products;
           this.copyProducts();
-       });*/
-       this.prom = productRepository.getProductsStream();
+       });
+       
 
        this.todoForm = fb.group({
             title: ['']
@@ -97,6 +99,7 @@ export class AppComponent implements OnInit{
    }
 
    public filterProduct(search){
+     console.log(search);
      this.copyProducts();
      if(!search){
        return
