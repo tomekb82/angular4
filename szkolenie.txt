@@ -4,6 +4,38 @@
 ngRx: https://github.com/ngrx/store
 model flux
 
+---------------------------------------------------------------
+Angular 2 basics
+
+#Start new Angular2 project using ng-cli
+#Display single product tile
+#Display list of products
+#AdditionalAbove list of products display list of several promoted products.
+
+---------------------------------------------------------------
+Components
+
+#Create a component for single product tile
+#Create a component for a list of products
+#AdditionalCreate a component for a list of promoted products
+#AdditionalAdd tags to product and display them
+#AdditionalRefactor code: simplify it, improve it's readability. Add type declarations in needed places
+
+---------------------------------------------------------------
+Events
+
+#Add products filtering basing on their name
+#Change filtering to use all of product properties
+#Make filtering case insensitive
+#AdditionalAdd a button for sorting by price. Each click on button should toggle sorting direction
+Additional For button created in previous task add indicator of sorting direction
+-Additional Add sorting by name on separate button. Enabling sorting by name should disable sorting by price
+#Additional Refactor code: extract components, simplify it and remove repetitions
+
+---------------------------------------------------------------
+Services and dependency injection
+#Move all products data into products repository
+#Register the repository in dependency injection container and inject it into main app component
 
 ---------------------------------------------------------------
 Http + RxJS
@@ -13,33 +45,28 @@ RxJs Marbles - wyszukac na www
 #Create second repository service using Http module to provide products data from server. 
 To obtain data you can use following URL: https://shining-torch-4509.firebaseio.com/products.json. 
 You can also create .json files containing data about products - webpack will serve them correctly.
-
 #Additional Create an interface for products repository. All implementations should implement it properly.
-
 #Additional Add retrying 5 times to Http–based implementation. Check if it works properly by changing data URI into invalid one or disabling network access in developer tools.
-
 #Additional Add ability to remove a product.
-
 #Additional Change retrying strategy to add 1 second delay between tries so app will wait 1 second, then 2, then 3, etc.
-
 #Additional Refactor code: make sure that every action is performed in proper place.
 
 --------------------------------------------------------------------------------
 Forms
 
-Create simple product form (name, price, description, image url). On submit event log new product data into console
+#Create simple product form (name, price, description, image url). On submit event log new product data into console
 
-Add validation to form - every field should be required
+#Add validation to form - every field should be required
 
-AdditionalAdd validation for price - it should be number greater than 0
+#AdditionalAdd validation for price - it should be number greater than 0
 
-AdditionalAdd custom validation for image url
+# AdditionalAdd custom validation for image url
 
-AdditionalAdd saving new product in product repository.
+#AdditionalAdd saving new product in product repository.
 
-AdditionalAdd ability to remove a product.
+#AdditionalAdd ability to remove a product.
 
-AdditionalRefactor your code: simplify it and extract components
+#AdditionalRefactor your code: simplify it and extract components
 
 ------------------------------------------------------------------------------
 Routing
@@ -49,6 +76,9 @@ Configure router with 2 routes: products list and order form
 
 Create a menu
 
-AdditionalDistinguish active menu item by applying specific styles.
+Additional Distinguish active menu item by applying specific styles.
 
-AdditionalAdd route for single product. Make product tile a link to product details.
+Additional Add route for single product. Make product tile a link to product details.
+
+
+

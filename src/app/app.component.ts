@@ -69,12 +69,16 @@ export class AppComponent implements OnInit{
        this.prom.subscribe((products)=>{
          if(this.saveOnce){
            this.tempProducts = products;
+           
+           console.log(this.tempProducts);
          }
        });
        
        this.todoForm = fb.group({
             title: ['']
-        });     
+        });  
+
+        
     }
 
     /* Filtering & sorting */
@@ -83,16 +87,23 @@ export class AppComponent implements OnInit{
       this.toggle = !this.toggle;
     }
 
-    public onSort (button) {
-        this.products.sort((a,b) => {
-          if(a.name > b.name){
-            return this.toggle ? 1 : -1;
-          }else{
-            return this.toggle ? -1: 1;
-          }
+    sortByNameEnabled = false;
+    public onSortByPrice() {
+      this.productRepository.sort("price", this.toggle);
+      this.changeToggle();
+    }
 
-        });
-        this.changeToggle();
+    public onFocusChange(type){
+      if(type=="price"){
+        this.sortByNameEnabled = false;
+      }else{
+        this.sortByNameEnabled = true;
+      }
+    }
+
+    public onSortByName() {
+      this.productRepository.sort("name", this.toggle);
+      this.changeToggle();
     }
   
    public filterProduct(search){
@@ -119,12 +130,7 @@ export class AppComponent implements OnInit{
     }
 
     public onDelete (product) {
-      console.log(this.tempProducts);
-        this.tempProducts = _.remove(this.tempProducts, function(o) { 
-          return o.name!=product.name; 
-        });
-        this.products = Object.assign([], this.tempProducts);
-        this.productRepository.getProductSubject().next(this.products);
+      this.productRepository.delete(product);
     }
 
     /* Forms */
@@ -135,5 +141,20 @@ export class AppComponent implements OnInit{
     addTodo () {
         this.todos.push({title: this.todoForm.value.title, done: false});
     }
+
+    private newProduct = {
+      name:"",
+      price: "",
+      description:"",
+      imageUrl:""
+    };
+
+    addProduct(valid, product){
+      if(!valid){
+        return;
+      }
+      this.productRepository.save(product);  
+    }
+
 
 }

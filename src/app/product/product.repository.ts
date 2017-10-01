@@ -17,6 +17,9 @@ export interface ProductRepository {
     getProducts(): IProduct[];
     getProductsStream();
     getProductSubject();
+    save(product:IProduct);
+    delete(product:IProduct);
+    sort(type,toggle:boolean);
 }
 
 @Injectable()
@@ -65,6 +68,32 @@ export class InMemoryProductRepository implements ProductRepository{
 	constructor(private http:Http){
 		this.getProductsRx();
 	}
+
+  save(product:IProduct){
+
+    this.products.push(product);
+    this.productStream.next(this.products);
+  }
+
+  delete(product:IProduct){
+    this.products = _.remove(this.products, function(o) { 
+      return o.name!=product.name; 
+    });
+    this.productStream.next(this.products);
+  }
+
+  sort(type,toggle:boolean){
+    this.products.sort((a,b) => {
+      if((type=="price" && a.price > b.price) 
+        || (type=="name" && a.name > b.name)  ){
+        return toggle ? 1 : -1;
+      }else{
+        return toggle ? -1: 1;
+      }
+    });
+    this.productStream.next(this.products);
+  }
+
 
   getProductsStream(){
     return Observable

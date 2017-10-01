@@ -24,10 +24,70 @@
   </ng-template>
 
   <br style="clear: both"/>
+  <div>
+    <form #formRef="ngForm" novalidate="true" (ngSubmit)="addProduct(formRef.valid,newProduct)">
+      <label>
+        Name: <input type="text" #nameRef="ngModel" required [(ngModel)]="newProduct.name" name="name" />
+        <div *ngIf="nameRef.touched || nameRef.dirty || formRef.submitted">
+          <div *ngIf="nameRef.errors?.required">
+            To pole jest wymagane
+          </div>
+        </div>
+      </label>
+      <label>
+        Price: <input type="number" #priceRef="ngModel" required pattern="^[0-9]" min="0" [(ngModel)]="newProduct.price" name="price" />
+        <div *ngIf="priceRef.touched || priceRef.dirty || formRef.submitted">
+          <div *ngIf="priceRef.errors?.required">
+            To pole jest wymagane
+          </div>
+          <div *ngIf="priceRef.errors?.min">
+            To pole musi mieć większe od zera
+          </div>
+          <div *ngIf="priceRef.errors?.pattern">
+            To pole musi być liczbą większą od zera
+          </div>
+        </div>
+      </label>
+      <label>
+        Description: <textarea #descriptionRef="ngModel" required [(ngModel)]="newProduct.description" name="description" ></textarea>
+        <div *ngIf="descriptionRef.touched || descriptionRef.dirty || formRef.submitted">
+          <div *ngIf="descriptionRef.errors?.required">
+            To pole jest wymagane
+          </div>
+        </div>
+      </label>
+      <label>
+        Image URL: <input type="url" #imageUrlRef="ngModel" pattern="https?://.+" required [(ngModel)]="newProduct.imageUrl" name="imageUrl" />
+        <div *ngIf="imageUrlRef.touched || imageUrlRef.dirty || formRef.submitted">
+          <div *ngIf="imageUrlRef.errors?.required">
+            To pole jest wymagane
+          </div>
+          <div *ngIf="imageUrlRef.errors?.pattern">
+            Niepoprawny adres URL.
+          </div>
+        </div>
+      </label>
+
+      <button type="submit">Add</button>
+    </form>
+  </div>
+
+  <br style="clear: both"/>
 
   <h1>All products:</h1>
   Find product: <input #in type="text" (input)="filterProduct(in.value)">
-  <button #sort (click)="onSort(sort)">Sortuj</button>
+  <button (click)="onSortByPrice()" [disabled]="sortByNameEnabled" (hover)="onFocusChange('price')">
+    Sortuj po cenie 
+    <span *ngIf="toggle"> >>  </span>
+    <span *ngIf="!toggle"> <<  </span>
+  </button> 
+  <button (click)="onSortByName()" (hover)="onFocusChange('name')">
+    Sortuj po nazwie 
+    <span *ngIf="toggle"> >>  </span>
+    <span *ngIf="!toggle"> <<  </span>
+  </button> 
+  
+
   <div *ngIf="prom | async as products; else loading2">
     <product-list [products]="products" (deleted)="onDelete($event)"></product-list>  
   </div>
@@ -37,6 +97,7 @@
   
   <br style="clear: both"/>
  
+
   <h1>
     TODOS:
   </h1>

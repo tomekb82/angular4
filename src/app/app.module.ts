@@ -4,6 +4,7 @@ import { ProductModule } from './product/product.module';
 import { TimerComponent } from './timer/timer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';                                                        
 
 import { AppComponent,AComponent, BComponent } from './app.component';
 import { TodoComponent} from './todo/todo.component';
@@ -26,13 +27,14 @@ const appRoutes: Routes = [
     TimerComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,    
+    FormsModule,                         
     ProductModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes)                                                                                                                  
   ],
   providers: [TodoRepository, {provide: ProductRepositoryToken, useClass: InMemoryProductRepository}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { }                                                                                                                                      
