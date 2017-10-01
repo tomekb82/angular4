@@ -16,13 +16,13 @@ You can also create .json files containing data about products - webpack will se
 
 #Additional Create an interface for products repository. All implementations should implement it properly.
 
-Additional Add retrying 5 times to Http–based implementation. Check if it works properly by changing data URI into invalid one or disabling network access in developer tools.
+#Additional Add retrying 5 times to Http–based implementation. Check if it works properly by changing data URI into invalid one or disabling network access in developer tools.
 
 #Additional Add ability to remove a product.
 
-Additional Change retrying strategy to add 1 second delay between tries so app will wait 1 second, then 2, then 3, etc.
+#Additional Change retrying strategy to add 1 second delay between tries so app will wait 1 second, then 2, then 3, etc.
 
-Additional Refactor code: make sure that every action is performed in proper place.
+#Additional Refactor code: make sure that every action is performed in proper place.
 
 --------------------------------------------------------------------------------
 Forms

@@ -60,6 +60,7 @@ export class InMemoryProductRepository implements ProductRepository{
   ];
 
   productStream = new Subject();
+  error;
 
 	constructor(private http:Http){
 		this.getProductsRx();
@@ -75,13 +76,25 @@ export class InMemoryProductRepository implements ProductRepository{
     return this.productStream;
   }
 
+  private NUM_OF_RETRIES = 0;
+
   getProductsRx() {
     this.http.get(this.SERVICE_URL)
       .map(res =>  _.values(res.json()))
       .do(products => this.products = products)
-      .subscribe((products:Response) => {
-        this.productStream.next(products);
-      });
+      .subscribe(
+        (products:Response) => {
+          this.productStream.next(products);
+        },
+        (err) => {  
+          this.NUM_OF_RETRIES++;
+           if(this.NUM_OF_RETRIES < 5){
+             setTimeout(() => {
+               this.getProductsRx();
+             }, 1000*this.NUM_OF_RETRIES);
+           } 
+        }
+      );
   }
 
   public getProducts (): IProduct[] {
