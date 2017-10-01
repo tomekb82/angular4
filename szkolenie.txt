@@ -10,28 +10,45 @@ Http + RxJS
 
 RxJs Marbles - wyszukac na www
 
-Create second repository service using Http module to provide products data from server. To obtain data you can use following URL: https://shining-torch-4509.firebaseio.com/products.json. You can also create .json files containing data about products - webpack will serve them correctly.
-AdditionalCreate an interface for products repository. All implementations should implement it properly.
-AdditionalAdd retrying 5 times to Http–based implementation. Check if it works properly by changing data URI into invalid one or disabling network access in developer tools.
+#Create second repository service using Http module to provide products data from server. 
+To obtain data you can use following URL: https://shining-torch-4509.firebaseio.com/products.json. 
+You can also create .json files containing data about products - webpack will serve them correctly.
+
+#Additional Create an interface for products repository. All implementations should implement it properly.
+
+Additional Add retrying 5 times to Http–based implementation. Check if it works properly by changing data URI into invalid one or disabling network access in developer tools.
+
 AdditionalAdd ability to remove a product.
+
 AdditionalChange retrying strategy to add 1 second delay between tries so app will wait 1 second, then 2, then 3, etc.
+
 AdditionalRefactor code: make sure that every action is performed in proper place.
 
 --------------------------------------------------------------------------------
 Forms
 
 Create simple product form (name, price, description, image url). On submit event log new product data into console
+
 Add validation to form - every field should be required
+
 AdditionalAdd validation for price - it should be number greater than 0
+
 AdditionalAdd custom validation for image url
+
 AdditionalAdd saving new product in product repository.
+
 AdditionalAdd ability to remove a product.
+
 AdditionalRefactor your code: simplify it and extract components
 
 ------------------------------------------------------------------------------
 Routing
 
+
 Configure router with 2 routes: products list and order form
+
 Create a menu
+
 AdditionalDistinguish active menu item by applying specific styles.
+
 AdditionalAdd route for single product. Make product tile a link to product details.

@@ -38,6 +38,7 @@ export class AppComponent implements OnInit{
   public productPromise: Promise<Array<IProduct>>;
   public products;
   public prom;
+  public saveOnce = true;
 
     public ngOnInit (): void {
         this.productPromise = new Promise((resolve) => {
@@ -46,12 +47,10 @@ export class AppComponent implements OnInit{
                 1000
             );
         });
-
-        this.copyProducts();
     }
 
      constructor (todoRepository: TodoRepository,
-             @Inject(ProductRepositoryToken) productRepository: ProductRepository,
+             @Inject(ProductRepositoryToken) private productRepository: ProductRepository,
              http: Http,
              fb: FormBuilder) {
 
@@ -59,19 +58,20 @@ export class AppComponent implements OnInit{
 
         this.todos = todoRepository.getTodos();
         //Then we have access to an observable emitting new event every time value changes
-        this.myInput.valueChanges.subscribe(value => this.values.push(value));
+        this.myInput.valueChanges
+          .subscribe(value => this.values.push(value));
  
        /*http.get('/assets/todos.json')
             .map(res => res.json())
             .subscribe((todos) => this.todosHttp = todos);*/
 
-       this.prom = productRepository.getProductsStream();     
+       this.prom = productRepository.getProductsStream();            
        this.prom.subscribe((products)=>{
-          this.tempProducts = products;
-          this.copyProducts();
+         if(this.saveOnce){
+           this.tempProducts = products;
+         }
        });
        
-
        this.todoForm = fb.group({
             title: ['']
         });     
@@ -94,23 +94,17 @@ export class AppComponent implements OnInit{
         });
         this.changeToggle();
     }
-   public copyProducts(){
-     this.products = Object.assign([], this.tempProducts);
-   }
-
+  
    public filterProduct(search){
-     console.log(search);
-     this.copyProducts();
+     this.saveOnce = false;
      if(!search){
-       return
+       this.products = Object.assign([], this.tempProducts);
+     }else{
+       this.products = this.tempProducts.filter(item => 
+         item.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
      }
-     this.products = this.tempProducts.filter(item => 
-       item.name.toLowerCase().indexOf(search.toLowerCase()) > -1);
+     this.productRepository.getProductSubject().next(this.products);
    } 
-
-    addTodo () {
-        this.todos.push({title: this.todoForm.value.title, done: false});
-    }
 
     /* Events */
     public clicks: Array<string> = [];
@@ -128,5 +122,9 @@ export class AppComponent implements OnInit{
     public values: Array<string> = [];
     //And create a control instance...
     public myInput = new FormControl();
+
+    addTodo () {
+        this.todos.push({title: this.todoForm.value.title, done: false});
+    }
 
 }
