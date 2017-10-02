@@ -27,7 +27,7 @@ export class InMemoryProductRepository implements ProductRepository{
 
   private SERVICE_URL = 'http://shining-torch-4509.firebaseio.com/products.json';
 
-	products = [
+	defaultProducts = [
     { 
       name:"Kurtka",
       price:250.00,
@@ -62,6 +62,7 @@ export class InMemoryProductRepository implements ProductRepository{
     }
   ];
 
+  products;
   productStream = new Subject();
   error;
 
@@ -98,7 +99,7 @@ export class InMemoryProductRepository implements ProductRepository{
   getProductsStream(){
     return Observable
       .from(this.productStream)
-      .startWith(this.products);
+      .startWith(this.defaultProducts);
   }
 	
   getProductSubject(){
@@ -127,7 +128,7 @@ export class InMemoryProductRepository implements ProductRepository{
   }
 
   public getProducts (): IProduct[] {
-    return this.products;
+    return this.defaultProducts;
   }
 }
 
