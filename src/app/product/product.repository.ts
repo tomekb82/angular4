@@ -20,6 +20,7 @@ export interface ProductRepository {
     save(product:IProduct);
     delete(product:IProduct);
     sort(type,toggle:boolean);
+    getProductByName(name);
 }
 
 @Injectable()
@@ -65,6 +66,11 @@ export class InMemoryProductRepository implements ProductRepository{
   products;
   productStream = new Subject();
   error;
+
+  getProductByName(name){
+    let idx = _.findIndex(this.products, function(o) { return o.name == name; });
+    return this.products[idx];
+  }
 
 	constructor(private http:Http){
 		this.getProductsRx();

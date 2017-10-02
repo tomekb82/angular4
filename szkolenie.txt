@@ -78,7 +78,6 @@ Create a menu
 
 Additional Distinguish active menu item by applying specific styles.
 
-Additional Add route for single product. Make product tile a link to product details.
-
+#Additional Add route for single product. Make product tile a link to product details.
 
 

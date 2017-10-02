@@ -7,6 +7,41 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 import { Observable, Subject } from 'rxjs';
 import "rxjs/add/operator/map";
 import * as _ from 'lodash'; 
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+    selector: 'product-details',
+    template: ` 
+    <h1>Product details: {{name}}</h1>
+
+    Price: {{product.price}}
+
+    <img [src]="product.imageUrl" />
+
+    
+    `
+})
+export class ProductDetailsComponent implements OnInit{
+
+  public name;
+  public product;
+
+  constructor (@Inject(ProductRepositoryToken) private productRepository: ProductRepository,
+                private activeRoute: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+  
+    this.activeRoute.params.subscribe(params => {
+        this.name = params['name'];
+        if(this.name){
+          this.product = this.productRepository.getProductByName(this.name);//, product => {
+          //  this.product = product;
+          //});
+        }
+    });
+  }  
+}
 
 @Component({
     selector: 'products',
