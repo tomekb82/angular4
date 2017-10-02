@@ -74,7 +74,7 @@ Routing
 
 #Configure router with 2 routes: products list and order form
 
-Create a menu
+#Create a menu
 
 Additional Distinguish active menu item by applying specific styles.
 

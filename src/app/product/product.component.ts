@@ -6,8 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     selector: 'product',
     template: `
         <div class="w3-card-4" style="width:300px; height:350px; float:left">
-          <button style="float:right" (click)="onDelete()">X</button>
-          <button style="float:right" (click)="showDetails(product)">Show</button>
+          <button style="float:right" class="btn-default"(click)="onDelete()">X</button>
+          <button style="float:right" class="btn-primary" (click)="showDetails(product)">Show</button>
           <div [ngStyle]="{'background-image': 'url(' + product.imageUrl + ') ' , 'background-size': 'cover',height: '250px',width: '300px'}" > </div>
           <div class="w3-container w3-center">
             <div style="white-space: nowrap;  overflow: hidden; text-overflow: ellipsis">

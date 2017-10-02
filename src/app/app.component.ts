@@ -13,12 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     selector: 'product-details',
     template: ` 
     <h1>Product details: {{name}}</h1>
-
     Price: {{product.price}}
-
-    <img [src]="product.imageUrl" />
-
-    
+    <img [src]="product.imageUrl"/>   
     `
 })
 export class ProductDetailsComponent implements OnInit{
@@ -46,22 +42,41 @@ export class ProductDetailsComponent implements OnInit{
 @Component({
     selector: 'products',
     template: ` 
-    <h1>All products:</h1>
-    
-    Find product: <input #in type="text" (input)="filterProduct(in.value)">
-    <button (click)="onSortByPrice()" [disabled]="sortByNameEnabled">
-      Sortuj po cenie 
-      <span *ngIf="toggle"> >>  </span>
-      <span *ngIf="!toggle"> <<  </span>
-    </button> 
-    <button (click)="onSortByName()">
-      Sortuj po nazwie 
-      <span *ngIf="toggle"> >>  </span>
-      <span *ngIf="!toggle"> <<  </span>
-    </button> 
-  
-    <div *ngIf="prom | async as products; else loading">
-      <product-list [products]="products" (deleted)="onDelete($event)"></product-list>  
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>All products:</h1>
+        </div>  
+      </div>
+    <div class="row">
+      <div class="col-xs-3">
+        Find product: <input #in type="text" (input)="filterProduct(in.value)">
+      </div>
+      <div class="col-xs-2">
+        <button class="btn-primary" (click)="onSortByPrice()" [disabled]="sortByNameEnabled">
+          Sort By Price 
+          <span *ngIf="toggle"> >>  </span>
+          <span *ngIf="!toggle"> <<  </span>
+        </button> 
+      </div>
+      <div class="col-xs-2">
+        <button class="btn-primary" (click)="onSortByName()">
+          Sort By Name 
+          <span *ngIf="toggle"> >>  </span>
+          <span *ngIf="!toggle"> <<  </span>
+        </button> 
+      </div>
+      <div class="col-xs-4">
+      </div>
+    </div>
+    <div class="row content">
+      <div class="col-xs-12">
+      <div *ngIf="prom | async as products; else loading">
+        <product-list [products]="products" (deleted)="onDelete($event)"></product-list>  
+      </div>
+    </div>  
+   </div>
+
     </div>
     <ng-template #loading>
       Loading data
@@ -120,8 +135,10 @@ export class ProductsComponent {
 @Component({
     selector: 'product-form',
     template: `
+    <div class="container">
     <h1> Add product </h1>
     <form #formRef="ngForm" novalidate="true" (ngSubmit)="addProduct(formRef.valid,newProduct)">
+      <div class="form-group">
       <label>
         Name: <input type="text" #nameRef="ngModel" required [(ngModel)]="newProduct.name" name="name" />
         <div *ngIf="nameRef.touched || nameRef.dirty || formRef.submitted">
@@ -130,6 +147,8 @@ export class ProductsComponent {
           </div>
         </div>
       </label>
+      </div>
+      <div class="form-group">
       <label>
         Price: <input type="number" #priceRef="ngModel" required pattern="^[0-9]" min="0" [(ngModel)]="newProduct.price" name="price" />
         <div *ngIf="priceRef.touched || priceRef.dirty || formRef.submitted">
@@ -144,6 +163,8 @@ export class ProductsComponent {
           </div>
         </div>
       </label>
+      </div>
+      <div class="form-group">
       <label>
         Description: <textarea #descriptionRef="ngModel" required [(ngModel)]="newProduct.description" name="description" ></textarea>
         <div *ngIf="descriptionRef.touched || descriptionRef.dirty || formRef.submitted">
@@ -152,6 +173,8 @@ export class ProductsComponent {
           </div>
         </div>
       </label>
+      </div>
+      <div class="form-group">
       <label>
         Image URL: <input type="url" #imageUrlRef="ngModel" pattern="https?://.+" required [(ngModel)]="newProduct.imageUrl" name="imageUrl" />
         <div *ngIf="imageUrlRef.touched || imageUrlRef.dirty || formRef.submitted">
@@ -163,8 +186,12 @@ export class ProductsComponent {
           </div>
         </div>
       </label>
-      <button type="submit">Add</button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success float-md-right float-xs-right" type="submit">Add</button>
+      </div>  
     </form>
+    </div>
   `
 })
 export class ProductFormComponent {
@@ -189,13 +216,15 @@ export class ProductFormComponent {
 @Component({
     selector: 'promoted-products',
     template: `
+    <div class="container">
     <h1>Promoted products:</h1> 
     <div *ngIf="productPromise | async as products; else loading">
       <promoted-product-list [products]="products"></promoted-product-list> 
     </div>
     <ng-template #loading>
       Loading data
-    </ng-template> `
+    </ng-template> 
+    </div>`
 })
 /*<product-list [products]="products | promoted"></product-list> */
 export class PromotedProductsComponent implements OnInit{
@@ -220,6 +249,7 @@ export class PromotedProductsComponent implements OnInit{
 @Component({
     selector: 'todos',
     template: `
+    <div class="container">
     <h1>TODOS</h1>
       
     Normal component: 
@@ -239,6 +269,7 @@ export class PromotedProductsComponent implements OnInit{
         <button (click)="addTodo()">Add</button>
       </form>
       <my-todo *ngFor="let todo of todos" [todo]="todo"></my-todo>
+    </div>
     </div>
     `
 })
@@ -272,6 +303,7 @@ export class TodosComponent{
 @Component({
     selector: 'events',
     template: `
+    <div class="container">
     <h1>Events</h1>
     
     <div>
@@ -292,6 +324,7 @@ export class TodosComponent{
     <ul>
       <li *ngFor="let tick of ticks">{{ tick.toLocaleTimeString() }}</li>
     </ul> 
+    </div>
     `
 })
 export class EventsComponent{
@@ -327,7 +360,7 @@ export class EventsComponent{
 })
 export class AppComponent {
 
-  private title = 'Shop with list of all products'; 
+  private title = 'Wallegro'; 
  
   constructor () {}
 
