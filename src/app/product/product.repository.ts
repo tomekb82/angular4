@@ -28,6 +28,7 @@ export class InMemoryProductRepository implements ProductRepository{
 
   private SERVICE_URL = 'http://shining-torch-4509.firebaseio.com/products.json';
 
+  const 
 	defaultProducts = [
     { 
       name:"Kurtka",

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import {TodoRepository} from "./todo/todo.repository";
-import {ProductRepository, ProductRepositoryToken, IProduct} from "./product/product.repository";
+import {ProductRepository, ProductRepositoryToken, IProduct} from './product/product.repository';
 import { Http } from '@angular/http';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Observable, Subject } from 'rxjs';
@@ -80,7 +80,8 @@ export class ProductDetailsComponent implements OnInit{
     </div>
     <ng-template #loading>
       Loading data
-    </ng-template>`
+    </ng-template>
+    `
 })
 export class ProductsComponent {
 
